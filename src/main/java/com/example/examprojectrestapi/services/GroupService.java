@@ -1,12 +1,12 @@
 package com.example.examprojectrestapi.services;
 
+import com.example.examprojectrestapi.dto.SimpleResponse;
 import com.example.examprojectrestapi.dto.group.GroupRequest;
 import com.example.examprojectrestapi.dto.group.GroupResponse;
-import com.example.examprojectrestapi.dto.SimpleResponse;
 import com.example.examprojectrestapi.exceptions.GroupNotFoundException;
 import com.example.examprojectrestapi.mappers.edits.GroupEditMapper;
 import com.example.examprojectrestapi.mappers.views.GroupViewMapper;
-import com.example.examprojectrestapi.models.*;
+import com.example.examprojectrestapi.models.Group;
 import com.example.examprojectrestapi.repositories.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,11 +22,11 @@ public class GroupService {
 
     private final GroupEditMapper groupEditMapper;
 
-    private Group getGroupById(Long groupId) {
-        return groupRepository.findById(groupId).orElseThrow(
-                () -> new GroupNotFoundException(groupId)
-        );
-    }
+//    private Group getGroupById(Long groupId) {
+//        return groupRepository.findById(groupId).orElseThrow(
+//                () -> new GroupNotFoundException(groupId)
+//        );
+//    }
 
     //find all
     public List<GroupResponse> findAll() {
@@ -35,7 +35,9 @@ public class GroupService {
 
     //find by id
     public GroupResponse findById(Long groupId) {
-        Group group = getGroupById(groupId);
+        Group group = groupRepository.findById(groupId).orElseThrow(
+                () -> new GroupNotFoundException("My Exception: Couldn't not fount group!")
+        );
         return groupViewMapper.viewGroup(group);
     }
 
@@ -52,7 +54,7 @@ public class GroupService {
         boolean exists = groupRepository.existsById(groupId);
 
         if(!exists) {
-            throw new GroupNotFoundException(groupId);
+            throw new GroupNotFoundException("My Exception: Couldn't not found group!");
         }
         groupRepository.deleteById(groupId);
 
@@ -64,7 +66,7 @@ public class GroupService {
 
     //update by id
     public GroupResponse updateById(Long groupId, GroupRequest groupRequest) {
-        Group group = getGroupById(groupId);
+        Group group = groupRepository.findById(groupId).get();
         groupEditMapper.update(group, groupRequest);
         groupRepository.save(group);
         return groupViewMapper.viewGroup(groupRepository.save(group));

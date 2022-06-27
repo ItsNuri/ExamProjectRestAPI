@@ -1,13 +1,14 @@
 package com.example.examprojectrestapi.exceptions;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import java.text.MessageFormat;
 
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class TeacherNotFoundException extends RuntimeException {
 
-    public TeacherNotFoundException() {
-    }
-
-    public TeacherNotFoundException(Long id) {
-        super(MessageFormat.format("Could not find teacher with id: {id}",id));
+    public TeacherNotFoundException(String message) {
+        super(message);
     }
 }

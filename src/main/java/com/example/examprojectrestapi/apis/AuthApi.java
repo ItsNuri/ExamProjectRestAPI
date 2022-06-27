@@ -2,6 +2,7 @@ package com.example.examprojectrestapi.apis;
 
 import com.example.examprojectrestapi.dto.AuthResponse;
 import com.example.examprojectrestapi.dto.RegisterRequest;
+import com.example.examprojectrestapi.models.Role;
 import com.example.examprojectrestapi.models.User;
 import com.example.examprojectrestapi.security.JwtProvider;
 import com.example.examprojectrestapi.services.UserService;
@@ -12,16 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AuthApi {
-    @Autowired
     private UserService userService;
-    @Autowired
+
+    public AuthApi(UserService userService, JwtProvider provider) {
+        this.userService = userService;
+        this.provider = provider;
+    }
+
     private JwtProvider provider;
 
     @PostMapping("/register")
     public String registerUser(@RequestBody RegisterRequest request) {
+
+
         User user = new User();
         user.setPassword(request.getPassword());
         user.setEmail(request.getEmail());
+        System.out.println(user.getRole());
         userService.saveUser(user);
         return "ok";
     }

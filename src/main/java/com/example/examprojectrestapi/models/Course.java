@@ -50,21 +50,8 @@ public class Course implements Serializable {
 
     private boolean isActive;
 
-    public Course() {
-    }
-
-    public Course(Long id,String courseName, int duration, Company company,
-                  List<Group> groups, Teacher teacher,
-                  LocalDate createdDate, boolean isActive) {
-        this.id = id;
-        this.courseName = courseName;
-        this.duration = duration;
-        this.company = company;
-        this.groups = groups;
-        this.teacher = teacher;
-        this.createdDate = createdDate;
-        this.isActive = isActive;
-    }
+    @OneToOne
+    private User user;
 
     public void addGroup(Group group) {
         this.groups.add(group);

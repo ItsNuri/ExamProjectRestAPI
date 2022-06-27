@@ -1,14 +1,13 @@
 package com.example.examprojectrestapi.exceptions;
 
-import java.text.MessageFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class CompanyNotFoundException extends RuntimeException{
 
-    public CompanyNotFoundException() {
-        super();
-    }
-
-    public CompanyNotFoundException(Long id) {
-        super(MessageFormat.format("Could not find company with id: {id}", id));
+    public CompanyNotFoundException(String message) {
+        super(message);
     }
 }

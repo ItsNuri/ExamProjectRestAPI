@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,8 +23,8 @@ public class User {
 
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "role_id")
-    private Role role;
+    private  Role role;
 
 }

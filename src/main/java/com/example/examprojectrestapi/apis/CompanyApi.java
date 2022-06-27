@@ -46,7 +46,7 @@ public class CompanyApi {
         return companyService.deleteById(companyId);
     }
 
-    //update
+   // update
     @PutMapping("/update/{companyId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public CompanyResponse updateCompanyById(@PathVariable Long companyId,

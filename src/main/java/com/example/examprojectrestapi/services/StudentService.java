@@ -21,11 +21,11 @@ public class StudentService {
     private final StudentViewMapper studentViewMapper;
     private final StudentEditMapper studentEditMapper;
 
-    private Student getStudentById(Long studentId) {
-        return studentRepository.findById(studentId).orElseThrow(
-                () -> new StudentNotFoundException(studentId)
-        );
-    }
+//    private Student getStudentById(Long studentId) {
+//        return studentRepository.findById(studentId).orElseThrow(
+//                () -> new StudentNotFoundException(studentId)
+//        );
+//    }
 
     //find all
     public List<StudentResponse> findAll() {
@@ -34,7 +34,9 @@ public class StudentService {
 
     //find by id
     public StudentResponse findById(Long studentId) {
-        Student student = getStudentById(studentId);
+        Student student = studentRepository.findById(studentId).orElseThrow(
+                () -> new StudentNotFoundException("My Exception: Couldn't not fount student!")
+        );
         return studentViewMapper.viewStudent(student);
     }
 
@@ -51,7 +53,7 @@ public class StudentService {
         boolean exists = studentRepository.existsById(studentId);
 
         if(!exists) {
-            throw new StudentNotFoundException(studentId);
+            throw new StudentNotFoundException("My Exception: Couldn't not fount student!");
         }
         studentRepository.deleteById(studentId);
 
@@ -63,7 +65,7 @@ public class StudentService {
 
     //update by id
     public StudentResponse updateById(Long studentId, StudentRequest studentRequest) {
-        Student student = getStudentById(studentId);
+        Student student = studentRepository.findById(studentId).get();
         studentEditMapper.update(student, studentRequest);
         studentRepository.save(student);
         return studentViewMapper.viewStudent(studentRepository.save(student));

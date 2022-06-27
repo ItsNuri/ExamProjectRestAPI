@@ -45,18 +45,8 @@ public class Company {
 
     private boolean isActive;
 
-    public Company() {
-    }
-
-    public Company(Long id,String companyName, String locatedCountry,
-                   List<Course> courses, LocalDate createdDate, Boolean isActive) {
-        this.id = id;
-        this.companyName = companyName;
-        this.locatedCountry = locatedCountry;
-        this.courses = courses;
-        this.createdDate = createdDate;
-        this.isActive = isActive;
-    }
+    @OneToOne
+    private User user;
 
     public void setCourse(Course course) {
         this.courses.add(course);

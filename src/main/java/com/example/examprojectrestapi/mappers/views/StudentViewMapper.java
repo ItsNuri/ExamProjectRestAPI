@@ -2,6 +2,7 @@ package com.example.examprojectrestapi.mappers.views;
 
 import com.example.examprojectrestapi.dto.student.StudentResponse;
 import com.example.examprojectrestapi.models.Student;
+import com.example.examprojectrestapi.models.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class StudentViewMapper {
         response.setId(student.getId());
         response.setFirstName(student.getFirstName());
         response.setLastName(student.getLastName());
-        response.setEmail(student.getEmail());
+        response.setEmail(student.getUser().getEmail());
         response.setStudyFormat(student.getStudyFormat());
         response.setGroup(student.getGroup());
         response.setCreatedDate(student.getCreatedDate());

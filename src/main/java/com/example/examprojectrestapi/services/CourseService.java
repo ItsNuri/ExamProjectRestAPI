@@ -22,11 +22,11 @@ public class CourseService {
 
     private final CourseViewMapper courseViewMapper;
 
-    private Course getCourseById(Long courseId) {
-        return courseRepository.findById(courseId).orElseThrow(
-                () -> new CourseNotFoundException(courseId)
-        );
-    }
+//    private Course getCourseById(Long courseId) {
+//        return courseRepository.findById(courseId).orElseThrow(
+//                () -> new CourseNotFoundException(courseId)
+//        );
+//    }
 
     //find all
     public List<CourseResponse> findAll() {
@@ -35,7 +35,9 @@ public class CourseService {
 
     //find by id
     public CourseResponse findById(Long courseId) {
-        Course course = getCourseById(courseId);
+        Course course = courseRepository.findById(courseId).orElseThrow(
+                ()->new CourseNotFoundException("My Exception: Couldn't not fount course!")
+        );
         return courseViewMapper.viewCourse(course);
     }
 
@@ -51,7 +53,7 @@ public class CourseService {
         boolean exists = courseRepository.existsById(courseId);
 
         if (!exists) {
-            throw new CourseNotFoundException(courseId);
+            throw new CourseNotFoundException("My Exception: Couldn't not fount!");
         }
         courseRepository.deleteById(courseId);
 
@@ -63,7 +65,7 @@ public class CourseService {
 
     //update by id
     public CourseResponse updateCourseById(Long courseId, CourseRequest courseRequest) {
-        Course course = getCourseById(courseId);
+        Course course = courseRepository.findById(courseId).get();
         courseEditMapper.update(course,courseRequest);
         courseRepository.save(course);
         return courseViewMapper.viewCourse(courseRepository.save(course));

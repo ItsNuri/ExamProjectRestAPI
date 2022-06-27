@@ -39,7 +39,8 @@ public class Student {
     @Column(name = "last_name")
     private String lastName;
 
-    private String email;
+    @OneToOne
+    private User user;
 
     @Column(name = "study_format")
     private StudyFormat studyFormat;
@@ -52,15 +53,4 @@ public class Student {
 
     private boolean isActive;
 
-    public Student(String firstName, String lastName,
-                   String email, StudyFormat studyFormat,
-                   Group group, LocalDate createdDate, boolean isActive) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.studyFormat = studyFormat;
-        this.group = group;
-        this.createdDate = createdDate;
-        this.isActive = isActive;
-    }
 }

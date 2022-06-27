@@ -48,14 +48,6 @@ public class Teacher {
 
     private boolean isActive;
 
-    public Teacher(String firstName,
-                   String lastName, String email, Course course,
-                   LocalDate createdDate, boolean isActive) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.course = course;
-        this.createdDate = createdDate;
-        this.isActive = isActive;
-    }
+    @OneToOne
+    private User user;
 }

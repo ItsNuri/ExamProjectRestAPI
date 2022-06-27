@@ -58,6 +58,9 @@ public class Group {
 
     private boolean isActive;
 
+    @OneToOne
+    private User user;
+
     public void addCourse(Course course) {
         this.courses.add(course);
     }
@@ -66,15 +69,5 @@ public class Group {
         this.students.add(student);
     }
 
-    public Group(String groupName, Date dateOfStart, Date dateOfFinish,
-                 List<Course> courses, List<Student> students,
-                 LocalDate createdDate, boolean isActive) {
-        this.groupName = groupName;
-        this.dateOfStart = dateOfStart;
-        this.dateOfFinish = dateOfFinish;
-        this.courses = courses;
-        this.students = students;
-        this.createdDate = createdDate;
-        this.isActive = isActive;
-    }
+
 }

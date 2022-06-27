@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,22 +21,16 @@ public class CompanyService {
     private final CompanyEditMapper companyEditMapper;
     private final CompanyViewMapper companyViewMapper;
 
-
-    private Company getCompanyById(Long companyId) {
-        return companyRepository.findById(companyId).orElseThrow(
-                () -> new CompanyNotFoundException(companyId)
-        );
-    }
-
     //find all
     public List<CompanyResponse> findAll() {
         return companyViewMapper.view(companyRepository.findAll());
     }
 
     //findById
-
     public CompanyResponse findById(Long companyId) {
-        Company company = getCompanyById(companyId);
+        Company company = companyRepository.findById(companyId).orElseThrow(()->
+                new CompanyNotFoundException("My Exception: Couldn't not fount company!")
+        );
         return companyViewMapper.viewCompany(company);
     }
 
@@ -51,7 +46,7 @@ public class CompanyService {
         boolean exists = companyRepository.existsById(companyId);
 
         if (!exists) {
-            throw new CompanyNotFoundException(companyId);
+            throw new CompanyNotFoundException("My Exception: Couldn't not fount company!");
         }
 
         companyRepository.deleteById(companyId);
@@ -62,16 +57,12 @@ public class CompanyService {
         );
     }
 
-    //update
+//    update
     public CompanyResponse updateCompanyById(Long companyId, CompanyRequest companyRequest) {
-        Company company = getCompanyById(companyId);
+        Company company = companyRepository.findById(companyId).get();
         companyEditMapper.update(company,companyRequest);
         companyRepository.save(company);
         return companyViewMapper.viewCompany(companyRepository.save(company));
     }
-
-
-
-
 }
 

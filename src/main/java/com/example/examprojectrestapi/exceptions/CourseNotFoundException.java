@@ -1,15 +1,14 @@
 package com.example.examprojectrestapi.exceptions;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import java.text.MessageFormat;
 
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class CourseNotFoundException extends RuntimeException{
 
-
-    public CourseNotFoundException() {
-        super();
-    }
-
-    public CourseNotFoundException(Long id) {
-        super(MessageFormat.format("Could not find course with id: {id}",id));
+    public CourseNotFoundException(String message) {
+        super(message);
     }
 }

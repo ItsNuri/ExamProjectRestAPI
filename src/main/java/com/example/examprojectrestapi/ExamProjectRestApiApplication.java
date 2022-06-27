@@ -8,7 +8,9 @@ public class ExamProjectRestApiApplication {
 
     public static void main(String[] args) {
 
+
         SpringApplication.run(ExamProjectRestApiApplication.class, args);
+
 
     }
 }

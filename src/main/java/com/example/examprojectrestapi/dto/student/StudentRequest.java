@@ -2,6 +2,7 @@ package com.example.examprojectrestapi.dto.student;
 
 import com.example.examprojectrestapi.enums.StudyFormat;
 import com.example.examprojectrestapi.models.Group;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,9 @@ public class StudentRequest {
 
     private StudyFormat studyFormat;
 
+    @JsonIgnore
     private Group group;
+
+    private String password;
 
 }
